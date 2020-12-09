@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.UI;
+using UnityEditor;
 
 public class Maze : MonoBehaviour
 {
@@ -10,13 +11,18 @@ public class Maze : MonoBehaviour
     public int Columns = 2;
     public GameObject Wall;
     public GameObject Floor;
+    public GameObject EndRoom;
+    public GameObject eRoom;
     public InputField HeightField;
     public InputField WidthField;
+    public static Button RegenButton;
 
     private MazeCell[,] grid;
     private int currentRow = 0;
     private int currentColumn = 0;
     private bool scanComplete = false;
+
+    //private static var flags = StaticEditorFlags.NavigationStatic;
 
     void Start()
     {
@@ -51,6 +57,7 @@ public class Maze : MonoBehaviour
             for (int j = 0; j < Columns; j++)
             {
                 GameObject floor = Instantiate(Floor, new Vector3(j * size, 0, -i * size), Quaternion.identity);
+                floor.isStatic = true;
                 floor.name = "Floor_" + i + "_" + j;
 
                 GameObject upWall = Instantiate(Wall, new Vector3(j * size, 1.75f, -i * size + 1.25f), Quaternion.identity);
@@ -85,6 +92,9 @@ public class Maze : MonoBehaviour
                 if (i == Rows - 1 && j == Columns - 1)
                 {
                     Destroy(rightWall);
+
+                    GameObject final = Instantiate(EndRoom, new Vector3(j * size + 3f, 0, -i * size), Quaternion.identity);
+                    final.name = "Ending Room";
                 }
             }
         }
@@ -370,7 +380,12 @@ public class Maze : MonoBehaviour
         {
             Columns = Mathf.Max(2, columns);
         }
-
+        DestroyEnd();
         GenerateGrid();
     }
+    public void DestroyEnd()
+    {
+        eRoom = GameObject.Find("Ending Room");
+        Destroy(eRoom);
+    } 
 }
