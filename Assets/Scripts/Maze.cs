@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.UI;
 using UnityEditor;
+using UnityEditor.AI;
+using UnityEngine.AI;
 
 public class Maze : MonoBehaviour
 {
@@ -21,8 +23,6 @@ public class Maze : MonoBehaviour
     private int currentRow = 0;
     private int currentColumn = 0;
     private bool scanComplete = false;
-
-    //private static var flags = StaticEditorFlags.NavigationStatic;
 
     void Start()
     {
@@ -45,6 +45,7 @@ public class Maze : MonoBehaviour
 
 
         HuntAndKill();
+        UnityEditor.AI.NavMeshBuilder.BuildNavMesh();
     }
 
     void CreateGrid()
@@ -61,15 +62,19 @@ public class Maze : MonoBehaviour
                 floor.name = "Floor_" + i + "_" + j;
 
                 GameObject upWall = Instantiate(Wall, new Vector3(j * size, 1.75f, -i * size + 1.25f), Quaternion.identity);
+                upWall.isStatic = true;
                 upWall.name = "UpWall_" + i + "_" + j;
 
                 GameObject downWall = Instantiate(Wall, new Vector3(j * size, 1.75f, -i * size - 1.25f), Quaternion.identity);
+                downWall.isStatic = true;
                 downWall.name = "DownWall_" + i + "_" + j;
 
                 GameObject leftWall = Instantiate(Wall, new Vector3(j * size - 1.25f, 1.75f, -i * size), Quaternion.Euler(0, 90, 0));
+                leftWall.isStatic = true;
                 leftWall.name = "LeftWall_" + i + "_" + j;
 
                 GameObject rightWall = Instantiate(Wall, new Vector3(j * size + 1.25f, 1.75f, -i * size), Quaternion.Euler(0, 90, 0));
+                rightWall.isStatic = true;
                 rightWall.name = "RighttWall_" + i + "_" + j;
 
                 grid[i, j] = new MazeCell();
@@ -93,8 +98,10 @@ public class Maze : MonoBehaviour
                 {
                     Destroy(rightWall);
 
-                    GameObject final = Instantiate(EndRoom, new Vector3(j * size + 3f, 0, -i * size), Quaternion.identity);
+                    GameObject final = Instantiate(EndRoom, new Vector3(j * size + 1.5f, 0, -i * size), Quaternion.Euler(0,180,0));
+                    final.isStatic = true;
                     final.name = "Ending Room";
+                    
                 }
             }
         }

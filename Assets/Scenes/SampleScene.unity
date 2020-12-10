@@ -2932,7 +2932,6 @@ GameObject:
   m_Component:
   - component: {fileID: 729105392}
   - component: {fileID: 729105394}
-  - component: {fileID: 729105393}
   m_Layer: 0
   m_Name: UICamera
   m_TagString: Untagged
@@ -2954,14 +2953,6 @@ Transform:
   m_Father: {fileID: 808453951}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!81 &729105393
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 729105391}
-  m_Enabled: 1
 --- !u!20 &729105394
 Camera:
   m_ObjectHideFlags: 0
@@ -5790,17 +5781,6 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 1
-        m_CallState: 2
-      - m_Target: {fileID: 1384150700}
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &1423197411
 MonoBehaviour:
