@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.UI;
 using UnityEditor;
-using UnityEditor.AI;
+//using UnityEditor.AI;
 using UnityEngine.AI;
 
 public class Maze : MonoBehaviour
@@ -45,7 +45,7 @@ public class Maze : MonoBehaviour
 
 
         HuntAndKill();
-        UnityEditor.AI.NavMeshBuilder.BuildNavMesh();
+        //UnityEditor.AI.NavMeshBuilder.BuildNavMesh();
     }
 
     void CreateGrid()
