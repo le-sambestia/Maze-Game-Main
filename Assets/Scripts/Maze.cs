@@ -4,17 +4,20 @@ using UnityEngine;
 using UnityEngine.Rendering;
 using UnityEngine.UI;
 using UnityEditor;
-//using UnityEditor.AI;
-using UnityEngine.AI;
 
 public class Maze : MonoBehaviour
 {
     public int Rows = 2;
     public int Columns = 2;
+
     public GameObject Wall;
     public GameObject Floor;
     public GameObject EndRoom;
     public GameObject eRoom;
+    public GameObject Keys;
+    public GameObject ekey;
+    public GameObject keyDoor;
+
     public InputField HeightField;
     public InputField WidthField;
     public static Button RegenButton;
@@ -26,6 +29,7 @@ public class Maze : MonoBehaviour
 
     void Start()
     {
+        Debug.Log("maze gen ran first");
         GenerateGrid();
     }
 
@@ -45,7 +49,6 @@ public class Maze : MonoBehaviour
 
 
         HuntAndKill();
-        //UnityEditor.AI.NavMeshBuilder.BuildNavMesh();
     }
 
     void CreateGrid()
@@ -92,19 +95,22 @@ public class Maze : MonoBehaviour
                 if (i == 0 && j == 0)
                 {
                     Destroy(leftWall);
+
                 }
 
                 if (i == Rows - 1 && j == Columns - 1)
                 {
                     Destroy(rightWall);
 
-                    GameObject final = Instantiate(EndRoom, new Vector3(j * size + 1.5f, 0, -i * size), Quaternion.Euler(0,180,0));
-                    final.isStatic = true;
+                    GameObject final = Instantiate(EndRoom, new Vector3(j * size + 4.5f, 0, -i * size), Quaternion.Euler(0,180,0));
                     final.name = "Ending Room";
-                    
+
+                    //GameObject doorkey = Instantiate(Keys, new Vector3(j * size + 18.5f, 1.75f, -i * size), Quaternion.Euler(90, 0, 0));
+                    //doorkey.name = "doorkey";
                 }
             }
         }
+
     }
 
     void HuntAndKill()
@@ -393,6 +399,21 @@ public class Maze : MonoBehaviour
     public void DestroyEnd()
     {
         eRoom = GameObject.Find("Ending Room");
+        ekey = GameObject.Find("Key");
+        Destroy(ekey);
         Destroy(eRoom);
-    } 
+    }
+    //void Update()
+    //{
+    //    GameObject doorkey2 = GameObject.Find("Key");
+    //    if (doorkey2.activeSelf)
+    //    {
+    //        Debug.Log("Get Key");
+    //    }
+    //    else if (!doorkey2.activeSelf)
+    //    {
+    //        Debug.Log("You have key");
+    //        keyDoor.SetActive(false);
+    //    }
+    //}
 }
